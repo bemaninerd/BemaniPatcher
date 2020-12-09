@@ -93,6 +93,17 @@
                         ]
                     },
                 ]),
+                new Patcher("popn22.dll", "2020-09-28", [
+                    {
+                        name: "E: Drive Fix",
+                        tooltip: "Fix crash caused by no E: drive",
+                        patches: [{ offset: 0x286AA8, off: [0x65, 0x3A, 0x2F], on: [0x64, 0x65, 0x76] }],
+                    },
+                    {
+                        name: "Remove Timer",
+                        patches: [{ offset: 0xE294C, off: [0x0F, 0x85], on: [0x90, 0xE9] }],
+                    },
+                ]),
             ]);
         });
 
