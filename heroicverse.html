@@ -11,6 +11,22 @@
     <script type='text/javascript'>
       window.addEventListener('load', function () {
         new PatchContainer([
+             new Patcher('bm2dx.dll', "2020-10-29　(LDJ:K:C:A)", [
+            {
+              name: 'Skip decide screen',
+              tooltip : 'Immediately loads into chart after selection',
+              patches: [{offset: 0x2745E0, off: [0xE8, 0x6B, 0x00, 0x00, 0x00], on: [0x90, 0x90, 0x90, 0x90, 0x90]}]
+            },
+            {
+              name: 'Unlock All Songs',
+              patches: [{offset: 0x434620, off: [0x75, 0x24], on: [0x90, 0x90]}]
+            },
+            {
+              name: 'Premium Free Timer Freeze',
+              tooltip: 'Freezes the timer in PREMIUM FREE mode, allowing unlimited play until exit',
+              patches: [{offset: 0x356BBD, off: [0x7E], on: [0xEB]}]
+            },
+          ]),
           new Patcher('bm2dx.dll', "2020-09-29", [
             {
               name: 'Disable TDJ check for exclusive songs',
@@ -118,6 +134,35 @@
               tooltip : "This will allow the game to run on processors which do not support the SSE4.2 instruction set. If you can successfully boot the game, do NOT check this.",
               patches: [{offset: 0x2677C4, off: [0xF3, 0x45, 0x0F], on: [0x90, 0x90, 0x90]}]
             },
+            {
+              name: 'Always show FAST/SLOW total',
+              tooltip : "Toggles the 'FA/SL' judge text to show by default instead of requiring VEFX to be held.",
+              patches: [
+                {offset: 0x5667F0, off: [0x74], on: [0x75]},
+                {offset: 0x5665D3, off: [0x74], on: [0x75]},
+              ]
+            },
+            {
+              name: 'CS-Style Song Start Delay',
+              tooltip : "Holding Start will pause the song at the beginning until you release it",
+              patches: [
+                {offset: 0x575423, off: [0x7D, 0x4D], on: [0x90, 0x90]}
+              ]
+            },
+            {
+              name: 'Free play text to LED ticker (Bottom Right)',
+              tooltip : "Song Title/Ticker information will display instead of FREEPLAY",
+              patches: [{offset: 0x2BD26F, off: [0xE5, 0xD7, 0x4E, 0x00], on: [0x49, 0x7F, 0x50, 0x04]}]
+            },
+            {
+              name: 'Unscramble touch screen keypad in TDJ',
+              tooltip: 'Disable randomization of keypad layout when carding in',
+              patches: [{offset: 0x614855, off: [0x4D, 0x03, 0xC8, 0x49, 0xF7, 0xF1], on:[0xBA, 0x0C, 0x00, 0x00, 0x00, 0x90]}]
+            },
+            {
+              name: 'Always display EX score instead of money score',
+              patches: [{offset: 0x5ca12e, off: [0x33, 0xc0], on:[0xeb, 0xf4]}]
+            }
           ]),
         ]);
       });
